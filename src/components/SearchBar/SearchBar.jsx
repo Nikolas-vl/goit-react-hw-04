@@ -1,21 +1,22 @@
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 const SearchBar = ({ onSubmit }) => {
   const handleSubmit = e => {
     e.preventDefault();
-    const value = e.target.elements.search.value.trim();
+    const form = e.target;
+    const value = form.elements.search.value.trim();
 
     if (value === '') {
       return toast.error('Search bar is empty!!!');
     }
 
     onSubmit(value);
-    form.reset;
+    form.reset();
   };
 
   return (
     <header>
-      <Toaster />
+      <Toaster position='top-right' />
       <form onSubmit={handleSubmit}>
         <input type='text' autoComplete='off' autoFocus placeholder='Search images and photos' name='search' />
         <button type='submit'>Search</button>
