@@ -1,6 +1,6 @@
 import ImageCard from '../ImageCard/ImageCard';
 import s from './ImageGallery.module.css';
-const ImageGallery = ({ images, openModal }) => {
+const ImageGallery = ({ images, openModal, lastImageRef }) => {
   if (!images || images.length === 0) {
     return null;
   }
@@ -8,8 +8,8 @@ const ImageGallery = ({ images, openModal }) => {
   return (
     <div>
       <ul className={s.gallery}>
-        {images.map(image => (
-          <li className={s.item} key={image.id} onClick={() => openModal(image)}>
+        {images.map((image, index) => (
+          <li className={s.item} key={image.id} onClick={() => openModal(image)} ref={index === images.length - 1 ? lastImageRef : null}>
             <ImageCard image={image} />
           </li>
         ))}

@@ -17,7 +17,7 @@ const App = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadMoreButtonRef = useRef(null);
+  const lastImageRef = useRef(null);
 
   const handleSearch = newQuery => {
     if (newQuery === query) {
@@ -53,12 +53,6 @@ const App = () => {
     getImages();
   }, [query, page]);
 
-  useEffect(() => {
-    if (page > 1 && loadMoreButtonRef.current) {
-      loadMoreButtonRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [images]);
-
   const loadMore = () => {
     setPage(prev => prev + 1);
   };
@@ -73,11 +67,17 @@ const App = () => {
     setSelectedImage(null);
   };
 
+  useEffect(() => {
+    if (page > 1 && lastImageRef.current) {
+      lastImageRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [images]);
+
   return (
     <div>
       <SearchBar onSubmit={handleSearch} />
       {error && <ErrorMessage message={error} />}
-      <ImageGallery images={images} openModal={openModal} />
+      <ImageGallery images={images} openModal={openModal} lastImageRef={lastImageRef} />
       {isLoading && <Loader />}
       {images.length > 0 && page < totalPages && <LoadMoreBtn loadMore={loadMore} />}
       <ImageModal openModal={modalIsOpen} closeModal={closeModal} image={selectedImage} />

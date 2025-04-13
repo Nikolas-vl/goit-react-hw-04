@@ -1,5 +1,5 @@
 import toast, { Toaster } from 'react-hot-toast';
-
+import s from './SearchBar.module.css';
 const SearchBar = ({ onSubmit }) => {
   const handleSubmit = e => {
     e.preventDefault();
@@ -15,11 +15,13 @@ const SearchBar = ({ onSubmit }) => {
   };
 
   return (
-    <header>
+    <header className={s.searchBar}>
       <Toaster position='top-right' />
-      <form onSubmit={handleSubmit}>
-        <input type='text' autoComplete='off' autoFocus placeholder='Search images and photos' name='search' />
-        <button type='submit'>Search</button>
+      <form className={s.form} onSubmit={handleSubmit}>
+        <input className={s.input} type='text' autoComplete='off' autoFocus placeholder='Search images and photos' name='search' />
+        <button className={s.btn} type='submit'>
+          Search
+        </button>
       </form>
     </header>
   );
